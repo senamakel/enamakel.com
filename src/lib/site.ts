@@ -3,7 +3,6 @@ export const site = {
   role: "Second-time immigrant founder",
   tagline: "Building towards open-source AGI",
   location: "Dubai, United Arab Emirates",
-  email: "steven.enamakel@gmail.com",
   // `**text**` renders bold. Countries are bolded throughout.
   bio: [
     "I was born in Mumbai, **India**, and spent most of my childhood in **Bahrain** and **Kuwait**.",

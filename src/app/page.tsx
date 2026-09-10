@@ -1,4 +1,3 @@
-import { Mail } from "lucide-react";
 import Image from "next/image";
 
 import { RichText } from "@/components/rich-text";
@@ -77,16 +76,6 @@ export default function Home() {
             ))}
           </nav>
           <ul className="mt-6 flex items-center gap-4">
-            <li>
-              <a
-                href={`mailto:${site.email}`}
-                title="Email"
-                className="text-muted-foreground hover:text-foreground block transition-colors"
-              >
-                <Mail className="size-[18px]" />
-                <span className="sr-only">Email</span>
-              </a>
-            </li>
             {site.links.map((link) => (
               <li key={link.label}>
                 <a
