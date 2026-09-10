@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { HexTile } from "@/components/hex-tile";
 import { RichText } from "@/components/rich-text";
 import { SocialIcon } from "@/components/social-icon";
 import { ThemeButton } from "@/components/theme-button";
@@ -94,6 +95,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
+          <HexTile className="h-24 lg:h-auto lg:flex-1" />
         </aside>
 
         <main className="border-border w-full max-w-[38rem] pb-24 lg:col-span-9 lg:col-start-4 lg:border-l lg:pl-8 xl:pl-12">
