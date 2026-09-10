@@ -63,7 +63,7 @@ export default function Home() {
       <ThemeButton />
       <div className="lg:grid lg:grid-cols-12 lg:gap-x-8">
         {/* Left rail: identity and navigation, pinned on wide screens. */}
-        <aside className="border-border py-10 lg:col-span-3 lg:sticky lg:top-0 lg:h-screen lg:max-w-[16rem] lg:self-start lg:py-16">
+        <aside className="border-border flex flex-col gap-6 py-10 lg:col-span-3 lg:sticky lg:top-0 lg:h-screen lg:max-w-[16rem] lg:self-start lg:py-16">
           <nav className="flex flex-col gap-1 font-sans">
             {site.nav.map((item) => (
               <a
@@ -75,7 +75,10 @@ export default function Home() {
               </a>
             ))}
           </nav>
-          <ul className="mt-6 flex items-center gap-4">
+          <p className="text-muted-foreground max-w-[15rem] text-[13px] italic">
+            &quot;{site.quote}&quot;
+          </p>
+          <ul className="flex items-center gap-4">
             {site.links.map((link) => (
               <li key={link.label}>
                 <a
@@ -91,9 +94,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <p className="text-muted-foreground mt-8 max-w-[15rem] text-[13px] italic">
-            &quot;{site.quote}&quot;
-          </p>
         </aside>
 
         <main className="border-border w-full max-w-[38rem] pb-24 lg:col-span-9 lg:col-start-4 lg:border-l lg:pl-8 xl:pl-12">
