@@ -23,9 +23,24 @@ const mono = Geist_Mono({
   display: "swap",
 });
 
+const title = `${site.name} — ${site.tagline}`;
+
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.tagline}`,
-  description: site.bio[2],
+  metadataBase: new URL("https://enamakel.com"),
+  title,
+  description: site.intro,
+  openGraph: {
+    type: "profile",
+    title,
+    description: site.intro,
+    images: ["/steven.jpg"],
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description: site.intro,
+    images: ["/steven.jpg"],
+  },
 };
 
 // Applies the stored theme before first paint so there is no flash.
