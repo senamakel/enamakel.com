@@ -42,7 +42,7 @@ function ProjectList({ items }: { items: readonly Project[] }) {
             className="group flex items-baseline gap-6 py-3"
           >
             <span className="min-w-0 flex-1">
-              <span className="border-border group-hover:border-foreground group-hover:bg-foreground group-hover:text-background -mx-1 border-b px-1 transition-colors inline-block font-sans">
+              <span className="bg-foreground text-background group-hover:bg-transparent group-hover:text-foreground group-hover:border-border -mx-1 border-b border-transparent px-1 transition-colors inline-block font-sans">
                 {item.title}
               </span>
               <span className="text-muted-foreground mt-0.5 block">
@@ -71,7 +71,7 @@ function WritingList({ items }: { items: readonly Post[] }) {
             className="group flex items-baseline gap-6 py-3"
           >
             <span className="min-w-0 flex-1">
-              <span className="border-border group-hover:border-foreground group-hover:bg-foreground group-hover:text-background -mx-1 border-b px-1 transition-colors font-sans">{item.title}</span>
+              <span className="bg-foreground text-background group-hover:bg-transparent group-hover:text-foreground group-hover:border-border -mx-1 border-b border-transparent px-1 transition-colors font-sans">{item.title}</span>
             </span>
             <span className={`${LABEL} shrink-0 tabular-nums`}>
               {formatDate(item.date)}
@@ -97,7 +97,7 @@ export default async function Home() {
               <a
                 key={item.label}
                 href={item.href}
-                className="border-border hover:border-foreground hover:bg-foreground hover:text-background -mx-1 border-b px-1 transition-colors w-fit"
+                className="bg-foreground text-background hover:bg-transparent hover:text-foreground hover:border-border -mx-1 border-b border-transparent px-1 transition-colors w-fit"
               >
                 {item.label}
               </a>
