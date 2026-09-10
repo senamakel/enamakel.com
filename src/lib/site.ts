@@ -19,6 +19,7 @@ export const site = {
   nav: [
     { label: "About", href: "#about" },
     { label: "Building", href: "#building" },
+    { label: "Writing", href: "#writing" },
   ],
   links: [
     { label: "GitHub", icon: "github", href: "https://github.com/senamakel" },
@@ -67,6 +68,42 @@ export const site = {
       description: "Hive mind mechanics for agents. A step closer towards AGI.",
       href: "https://github.com/tinyhumansai/tinyhivemind",
       stars: "4",
+    },
+  ],
+  // Fallback only: the live list is fetched from the Medium and Substack
+  // feeds at build time. Dates are ISO so they sort with the fetched posts.
+  writing: [
+    {
+      title: "The Anatomy of Engineering Wealth",
+      href: "https://enamakel.substack.com/p/the-anatomy-of-engineering-wealth",
+      date: "2026-09-10T17:41:09.071Z",
+    },
+    {
+      title:
+        "Redesigning Money, using CryptoCurrencies to provide a Universal Basic Income",
+      href: "https://medium.com/enamakel/redesigning-money-using-cryptocurrencies-to-provide-a-universal-basic-income-c0238840d9ca",
+      date: "2019-09-15T11:08:43.000Z",
+    },
+    {
+      title: "Making of a decentralised physical reserve \u2014 Note 1",
+      href: "https://medium.com/enamakel/making-of-a-decentralised-physical-reserve-note-1-e8e76817e6b4",
+      date: "2018-07-18T09:14:28.000Z",
+    },
+    {
+      title: "Problems with interoperable blockchains & hybrid exchanges",
+      href: "https://medium.com/enamakel/problems-with-interoperable-blockchains-hybrid-exchanges-4897f2dc5b04",
+      date: "2018-07-18T08:42:11.000Z",
+    },
+    {
+      title: "Decentralised Mobile Payments for the poor",
+      href: "https://medium.com/enamakel/decentralised-mobile-payment-for-the-poor-86ad101f119a",
+      date: "2018-06-28T17:15:46.000Z",
+    },
+    {
+      title:
+        "How Kuwait & Me, a small startup that I built to spread the joy of giving in Kuwait, died",
+      href: "https://medium.com/enamakel/how-kuwait-me-a-small-startup-that-i-built-to-spread-the-joy-of-giving-in-kuwait-died-7a3832b4057b",
+      date: "2017-03-24T13:36:36.000Z",
     },
   ],
 } as const;

@@ -5,6 +5,7 @@ import { RichText } from "@/components/rich-text";
 import { SocialIcon } from "@/components/social-icon";
 import { ThemeButton } from "@/components/theme-button";
 import { site } from "@/lib/site";
+import { formatDate, getWriting, type Post } from "@/lib/writing";
 
 // Mono is kept for the star counts, where the figures should line up.
 const MONO = "font-mono text-xs tracking-tight";
@@ -58,7 +59,33 @@ function ProjectList({ items }: { items: readonly Project[] }) {
   );
 }
 
-export default function Home() {
+function WritingList({ items }: { items: readonly Post[] }) {
+  return (
+    <ul className="mt-4">
+      {items.map((item) => (
+        <li key={item.href} className="border-border border-b last:border-b-0">
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-link group flex items-baseline gap-6 py-3 transition-colors"
+          >
+            <span className="min-w-0 flex-1 font-sans group-hover:underline">
+              {item.title}
+            </span>
+            <span className={`${LABEL} shrink-0 tabular-nums`}>
+              {formatDate(item.date)}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export default async function Home() {
+  const writing = await getWriting();
+
   return (
     <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
       <ThemeButton />
@@ -131,6 +158,11 @@ export default function Home() {
           <section className="mt-12">
             <SectionHeading id="building">Building</SectionHeading>
             <ProjectList items={site.building} />
+          </section>
+
+          <section className="mt-12">
+            <SectionHeading id="writing">Writing</SectionHeading>
+            <WritingList items={writing} />
           </section>
 
           <footer className={`${META} border-border mt-10 border-t pt-6`}>

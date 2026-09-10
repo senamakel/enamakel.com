@@ -3,6 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # The writing list is pulled from the Medium and Substack feeds at build
+  # time, so rebuild daily to pick up new posts without a push.
+  schedule:
+    - cron: "17 6 * * *"
   workflow_dispatch:
 
 permissions:
