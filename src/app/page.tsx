@@ -63,7 +63,7 @@ function WritingList({ items }: { items: readonly Post[] }) {
   return (
     <ul className="mt-4">
       {items.map((item) => (
-        <li key={item.href} className="border-border border-b last:border-b-0">
+        <li key={item.href}>
           <a
             href={item.href}
             target="_blank"
