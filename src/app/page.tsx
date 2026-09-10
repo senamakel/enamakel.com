@@ -91,6 +91,9 @@ export default function Home() {
               </li>
             ))}
           </ul>
+          <p className="text-muted-foreground mt-8 max-w-[15rem] text-[13px] italic">
+            &quot;{site.quote}&quot;
+          </p>
         </aside>
 
         <main className="border-border w-full max-w-[38rem] pb-24 lg:col-span-9 lg:col-start-4 lg:border-l lg:pl-8 xl:pl-12">
@@ -121,9 +124,6 @@ export default function Home() {
                 <RichText text={paragraph} />
               </p>
             ))}
-            <blockquote className="border-foreground my-6 border-l-2 pl-5 text-[17px]">
-              {site.quote}
-            </blockquote>
           </section>
 
           <section className="mt-12">
