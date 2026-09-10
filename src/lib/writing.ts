@@ -9,6 +9,7 @@ export type Post = {
 const MEDIUM_FEED = "https://medium.com/feed/enamakel";
 const SUBSTACK_ARCHIVE =
   "https://enamakel.substack.com/api/v1/archive?sort=new&limit=50";
+const SUBSTACK_FEED = "https://enamakel.substack.com/feed";
 
 const ENTITIES: Record<string, string> = {
   "&amp;": "&",
@@ -39,9 +40,9 @@ function tag(item: string, name: string) {
   return match ? decode(match[1]) : "";
 }
 
-async function fetchMedium(): Promise<Post[]> {
-  const response = await fetch(MEDIUM_FEED);
-  if (!response.ok) throw new Error(`Medium feed: ${response.status}`);
+async function fetchRss(url: string, label: string): Promise<Post[]> {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`${label}: ${response.status}`);
   const xml = await response.text();
 
   return [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].flatMap(([, item]) => {
@@ -49,7 +50,9 @@ async function fetchMedium(): Promise<Post[]> {
     const link = tag(item, "link");
     const published = tag(item, "pubDate");
     if (!title || !link || !published) return [];
-    return [{ title, href: clean(link), date: new Date(published).toISOString() }];
+    return [
+      { title, href: clean(link), date: new Date(published).toISOString() },
+    ];
   });
 }
 
@@ -77,23 +80,27 @@ async function fetchSubstack(): Promise<Post[]> {
 }
 
 /**
- * Reads both feeds at build time and merges them, newest first. A feed that
- * fails is skipped rather than breaking the build; if both fail, the list
- * checked into site.ts is used so the section never renders empty.
+ * Reads the feeds at build time and merges them, newest first.
+ *
+ * The results are always unioned with the list checked into site.ts rather
+ * than used instead of it: Substack's archive API answers this machine but
+ * returns 403 to CI runners, so a build that only trusted the feeds would
+ * silently drop those posts. Substack is tried twice, API then RSS.
  */
 export async function getWriting(): Promise<Post[]> {
-  const results = await Promise.allSettled([fetchMedium(), fetchSubstack()]);
+  const results = await Promise.allSettled([
+    fetchRss(MEDIUM_FEED, "Medium feed"),
+    fetchSubstack().catch(() => fetchRss(SUBSTACK_FEED, "Substack feed")),
+  ]);
 
-  const posts = results.flatMap((result) => {
+  const fetched = results.flatMap((result) => {
     if (result.status === "fulfilled") return result.value;
     console.warn(`[writing] ${result.reason}`);
     return [];
   });
 
-  if (posts.length === 0) return [...site.writing];
-
   const seen = new Set<string>();
-  return posts
+  return [...fetched, ...site.writing]
     .filter((post) => !seen.has(post.href) && seen.add(post.href))
     .sort((a, b) => b.date.localeCompare(a.date));
 }
