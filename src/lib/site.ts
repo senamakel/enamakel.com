@@ -30,6 +30,11 @@ export const site = {
     },
     { label: "Telegram", icon: "telegram", href: "https://t.me/enamakel" },
     {
+      label: "Substack",
+      icon: "substack",
+      href: "https://enamakel.substack.com",
+    },
+    {
       label: "Instagram",
       icon: "instagram",
       href: "https://instagram.com/stevenenamakel",
