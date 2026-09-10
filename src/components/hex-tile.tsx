@@ -18,8 +18,7 @@ function mulberry32(seed: number) {
   };
 }
 
-function build(lines: number, columns: number) {
-  const random = mulberry32(0x5e7a);
+function build(lines: number, columns: number, random: () => number) {
   const out: string[] = [];
   for (let row = 0; row < lines; row++) {
     // Alternate bytes of hex with runs of binary so the block has texture.
@@ -35,15 +34,18 @@ function build(lines: number, columns: number) {
   return out;
 }
 
-const ROWS = build(80, 44);
-const FLIPS_PER_TICK = 6;
-const TICK_MS = 140;
+const LINES = 80;
+const COLUMNS = 44;
+const TICK_MS = 1000;
+
+// The first tile is seeded, so the prerendered markup is stable.
+const ROWS = build(LINES, COLUMNS, mulberry32(0x5e7a));
 
 /**
  * Ambient fill for the empty half of the rail. Decorative only. The block
- * holds still and a few digits change in place, like a memory dump ticking
- * over. It starts from the deterministic tile so the prerendered markup
- * matches, then mutates only after mount.
+ * holds still and the digits redraw once a second, like a memory dump
+ * refreshing. It starts from the deterministic tile so the prerendered markup
+ * matches, then re-randomises only after mount.
  */
 export function HexTile({ className = "" }: { className?: string }) {
   const [rows, setRows] = useState(ROWS);
@@ -52,22 +54,7 @@ export function HexTile({ className = "" }: { className?: string }) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const id = setInterval(() => {
-      setRows((previous) => {
-        const next = previous.slice();
-        for (let flip = 0; flip < FLIPS_PER_TICK; flip++) {
-          const row = (Math.random() * next.length) | 0;
-          const line = next[row];
-          const column = (Math.random() * line.length) | 0;
-          if (line[column] === " ") continue;
-          const digit = isBinaryRow(row)
-            ? Math.random() < 0.5
-              ? "0"
-              : "1"
-            : HEX[(Math.random() * 16) | 0];
-          next[row] = line.slice(0, column) + digit + line.slice(column + 1);
-        }
-        return next;
-      });
+      setRows(build(LINES, COLUMNS, Math.random));
     }, TICK_MS);
 
     return () => clearInterval(id);
