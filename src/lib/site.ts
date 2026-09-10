@@ -8,11 +8,13 @@ export const site = {
   bio: [
     "I was born in Mumbai, **India**, and spent most of my childhood in **Bahrain** and **Kuwait**.",
     "I studied mathematics and computer science at the University of Toronto in **Canada**, then dropped out a few years in. I started my career working in Mumbai, **India** and London, **the UK**. I now live in Dubai, **the UAE**.",
-    "I trained as a computer scientist, economist and mathematician, and I like building systems that hold up once a lot of people are using them. Most of the last decade went into decentralized finance. I founded ZeroLend, a money market that grew past $300M in liquidity and 100k daily users, and I built MahaDAO, a crypto-backed stablecoin, from nothing.",
-    "In 2025 I left crypto for AI infrastructure. Now I build memory for AI systems: how a machine decides what to keep and what to forget.",
+    "I'm a computer scientist, economist, and mathematician from the University of Toronto who enjoys building systems that solve real problems and scale globally.",
+    "Over the years, I've founded and led several projects in decentralized finance, including ZeroLend, a decentralized money market that grew to $300M+ in liquidity, and MahaDAO, a stablecoin ecosystem built from the ground up.",
+    "In 2025, I stepped away from crypto to focus on AI infrastructure. I'm currently building a memory layer for AI systems, exploring how machines can better retain, prioritize, and organize knowledge over time.",
+    "My journey has largely been self-directed, driven by curiosity about technology, economics, and human behavior, and how these systems interact to shape the world. I enjoy building things from first principles and learning along the way.",
     "I've seen and gone through racism, been both rich and poor, lived under three different governments and experienced four different cultures. Because of that, I've been fortunate to see many of the unfortunate parts of the world.",
     "I simply want to live in a world where the people I care for are loved and live happy lives. I like to do things that can help many people, and to find the answers to the toughest questions that surround humanity today.",
-    "I have failed a lot. Each time I came back and built something bigger than the last one.",
+    "I've gone through a lot of failures in my journey. But each time I've come back stronger and built something bigger than before.",
   ],
   quote: "I was born a hustler and will forever be a hustler.",
   nav: [
