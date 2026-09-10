@@ -82,10 +82,11 @@ async function fetchSubstack(): Promise<Post[]> {
 /**
  * Reads the feeds at build time and merges them, newest first.
  *
- * The results are always unioned with the list checked into site.ts rather
- * than used instead of it: Substack's archive API answers this machine but
- * returns 403 to CI runners, so a build that only trusted the feeds would
- * silently drop those posts. Substack is tried twice, API then RSS.
+ * The results are unioned with the list checked into site.ts rather than used
+ * instead of it: Substack's archive API answers this machine but returns 403
+ * to CI runners, so a build that only trusted the feeds would silently drop
+ * those posts. Substack is tried twice, API then RSS. Entries in site.ts win
+ * on a URL collision, which is how a title the feed gets wrong is corrected.
  */
 export async function getWriting(): Promise<Post[]> {
   const results = await Promise.allSettled([
@@ -99,8 +100,9 @@ export async function getWriting(): Promise<Post[]> {
     return [];
   });
 
+  // site.writing comes first so a hand-corrected title wins over the feed's.
   const seen = new Set<string>();
-  return [...fetched, ...site.writing]
+  return [...site.writing, ...fetched]
     .filter((post) => !seen.has(post.href) && seen.add(post.href))
     .sort((a, b) => b.date.localeCompare(a.date));
 }

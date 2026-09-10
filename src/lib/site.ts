@@ -7,7 +7,6 @@ export const site = {
   bio: [
     "I'm a computer scientist, economist, and mathematician from the University of Toronto who enjoys building systems that solve real problems and try to help forward humanity.",
     "I was born in Mumbai, **India**, and spent most of my childhood in **Bahrain** and **Kuwait**.",
-    "I studied mathematics and computer science at the University of Toronto in **Canada**, then dropped out a few years in. I started my career working in Mumbai, **India** and London, **the UK**. I now live in Dubai, **the UAE**.",
     "Over the years, I've founded and led several projects in decentralized finance, including ZeroLend, a decentralized money market that grew to $300M+ in liquidity, and MahaDAO, a stablecoin ecosystem built from the ground up.",
     "In 2025, I stepped away from crypto to focus on AI infrastructure. I'm currently building towards open-source AGI, harnesses and memory.",
     "My journey has largely been self-directed, driven by curiosity about technology, economics, and human behavior, and how these systems interact to shape the world. I enjoy building things from first principles and learning along the way.",
@@ -72,11 +71,12 @@ export const site = {
       stars: "4",
     },
   ],
-  // Fallback only: the live list is fetched from the Medium and Substack
-  // feeds at build time. Dates are ISO so they sort with the fetched posts.
+  // These entries override whatever the feeds return for the same URL, and
+  // stand in for any feed that fails at build time. Dates are ISO so they
+  // sort alongside the fetched posts.
   writing: [
     {
-      title: "The Anatomy of Engineering Wealth",
+      title: "The Anatomy of Engineering Wealth; Cartels & Game Theory",
       href: "https://enamakel.substack.com/p/the-anatomy-of-engineering-wealth",
       date: "2026-09-10T17:41:09.071Z",
     },
