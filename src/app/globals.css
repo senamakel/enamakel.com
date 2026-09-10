@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -126,5 +126,57 @@
   }
   html {
     @apply font-sans;
+  }
+}
+/* --- Site theme -------------------------------------------------------- */
+/* Warm paper, pure black ink, one electric blue for anything clickable. */
+
+@theme inline {
+  --color-link: var(--link);
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+}
+
+:root {
+  --background: #f7f6f5;
+  --foreground: #000000;
+  --card: #f7f6f5;
+  --card-foreground: #000000;
+  --popover: #f7f6f5;
+  --popover-foreground: #000000;
+  --muted: rgba(0, 0, 0, 0.03);
+  --muted-foreground: rgba(25, 25, 25, 0.56);
+  --accent: rgba(0, 0, 0, 0.04);
+  --accent-foreground: #000000;
+  --border: rgba(0, 0, 0, 0.12);
+  --input: rgba(0, 0, 0, 0.12);
+  --ring: #000000;
+  --link: #000000;
+  --radius: 0.125rem;
+}
+
+.dark {
+  --background: #0c0c0b;
+  --foreground: #f2f1ef;
+  --card: #0c0c0b;
+  --card-foreground: #f2f1ef;
+  --popover: #0c0c0b;
+  --popover-foreground: #f2f1ef;
+  --muted: rgba(255, 255, 255, 0.04);
+  --muted-foreground: rgba(242, 241, 239, 0.56);
+  --accent: rgba(255, 255, 255, 0.06);
+  --accent-foreground: #f2f1ef;
+  --border: rgba(255, 255, 255, 0.14);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #f2f1ef;
+  --link: #f2f1ef;
+}
+
+@layer base {
+  html {
+    @apply font-serif;
+  }
+  body {
+    font-size: 15px;
+    line-height: 1.5;
   }
 }

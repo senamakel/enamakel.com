@@ -1,90 +1,152 @@
-import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
+import { Mail } from "lucide-react";
+import Image from "next/image";
 
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Separator } from "@/components/ui/separator";
+import { RichText } from "@/components/rich-text";
+import { SocialIcon } from "@/components/social-icon";
+import { ThemeButton } from "@/components/theme-button";
 import { site } from "@/lib/site";
+
+// Mono is kept for the star counts, where the figures should line up.
+const MONO = "font-mono text-xs tracking-tight";
+const LABEL = `${MONO} text-muted-foreground`;
+const META = "font-sans text-[13px] text-muted-foreground";
+
+function SectionHeading({ id, children }: { id: string; children: string }) {
+  return (
+    <h2
+      id={id}
+      className="font-sans scroll-mt-16 pt-2 text-[22px] leading-tight font-normal"
+    >
+      {children}
+    </h2>
+  );
+}
+
+type Project = {
+  title: string;
+  description: string;
+  href: string;
+  stars: string;
+};
+
+function ProjectList({ items }: { items: readonly Project[] }) {
+  return (
+    <ul className="mt-4">
+      {items.map((item) => (
+        <li key={item.title} className="border-border border-b last:border-b-0">
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-link group flex items-baseline gap-6 py-3 transition-colors"
+          >
+            <span className="min-w-0 flex-1">
+              <span className="font-sans group-hover:underline">
+                {item.title}
+              </span>
+              <span className="text-muted-foreground mt-0.5 block">
+                {item.description}
+              </span>
+            </span>
+            <span className={`${LABEL} shrink-0 tabular-nums`}>
+              {item.stars} ★
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-16 px-6 py-16 sm:py-24">
-      <header className="flex items-start justify-between gap-4">
-        <div className="space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            {site.name}
-          </h1>
-          <p className="text-muted-foreground text-sm">
-            {site.role} · {site.location}
-          </p>
-        </div>
-        <ThemeToggle />
-      </header>
-
-      <section>
-        <p className="text-base leading-relaxed text-pretty sm:text-lg">
-          {site.bio}
-        </p>
-      </section>
-
-      <section className="space-y-6">
-        <h2 className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
-          Work
-        </h2>
-        <ul className="divide-border divide-y border-y">
-          {site.work.map((item) => (
-            <li key={item.title}>
-              <Link
+    <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+      <ThemeButton />
+      <div className="lg:grid lg:grid-cols-12 lg:gap-x-8">
+        {/* Left rail: identity and navigation, pinned on wide screens. */}
+        <aside className="border-border py-10 lg:col-span-3 lg:sticky lg:top-0 lg:h-screen lg:max-w-[16rem] lg:self-start lg:py-16">
+          <nav className="flex flex-col gap-1 font-sans">
+            {site.nav.map((item) => (
+              <a
+                key={item.label}
                 href={item.href}
-                className="hover:bg-muted/50 focus-visible:ring-ring group flex items-baseline gap-4 py-4 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+                className="hover:text-link w-fit underline-offset-4 transition-colors hover:underline"
               >
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-center gap-1 font-medium">
-                    {item.title}
-                    <ArrowUpRight className="size-3.5 opacity-0 transition-opacity group-hover:opacity-60" />
-                  </span>
-                  <span className="text-muted-foreground mt-1 block text-sm">
-                    {item.description}
-                  </span>
-                </span>
-                <span className="text-muted-foreground font-mono text-xs">
-                  {item.year}
-                </span>
-              </Link>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <ul className="mt-6 flex items-center gap-4">
+            <li>
+              <a
+                href={`mailto:${site.email}`}
+                title="Email"
+                className="text-muted-foreground hover:text-foreground block transition-colors"
+              >
+                <Mail className="size-[18px]" />
+                <span className="sr-only">Email</span>
+              </a>
             </li>
-          ))}
-        </ul>
-      </section>
+            {site.links.map((link) => (
+              <li key={link.label}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={link.label}
+                  className="text-muted-foreground hover:text-foreground block transition-colors"
+                >
+                  <SocialIcon name={link.icon} className="size-[18px]" />
+                  <span className="sr-only">{link.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
 
-      <section className="space-y-6">
-        <h2 className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
-          Elsewhere
-        </h2>
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-          <a
-            className="underline-offset-4 hover:underline"
-            href={`mailto:${site.email}`}
-          >
-            {site.email}
-          </a>
-          {site.links.map((link) => (
-            <a
-              key={link.label}
-              className="underline-offset-4 hover:underline"
-              href={link.href}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </section>
+        <main className="border-border w-full max-w-[38rem] pb-24 lg:col-span-9 lg:col-start-4 lg:border-l lg:pl-8 xl:pl-12">
+          <header className="border-border flex flex-col gap-3 border-b pt-2 pb-6 lg:pt-16">
+            <Image
+              src="/steven.jpg"
+              alt={site.name}
+              width={88}
+              height={88}
+              priority
+              className="mb-2 size-22 rounded-xs object-cover"
+            />
+            <h1 className="text-[28px] leading-[1.15] font-light tracking-[-0.02em] sm:text-[32px]">
+              {site.name}
+            </h1>
+            <p className={`${META} flex flex-wrap justify-between gap-x-6`}>
+              <span>
+                {site.role} · {site.tagline}
+              </span>
+              <span>{site.location}</span>
+            </p>
+          </header>
 
-      <Separator className="mt-auto" />
+          <section className="mt-10 space-y-3">
+            <SectionHeading id="about">About</SectionHeading>
+            {site.bio.map((paragraph) => (
+              <p key={paragraph}>
+                <RichText text={paragraph} />
+              </p>
+            ))}
+            <blockquote className="border-foreground my-6 border-l-2 pl-5 text-[17px]">
+              {site.quote}
+            </blockquote>
+          </section>
 
-      <footer className="text-muted-foreground text-xs">
-        © {new Date().getFullYear()} {site.name}
-      </footer>
-    </main>
+          <section className="mt-12">
+            <SectionHeading id="building">Building</SectionHeading>
+            <ProjectList items={site.building} />
+          </section>
+
+          <footer className={`${META} border-border mt-10 border-t pt-6`}>
+            © {new Date().getFullYear()} {site.name}
+          </footer>
+        </main>
+      </div>
+    </div>
   );
 }
